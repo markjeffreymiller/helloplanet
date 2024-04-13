@@ -2,3 +2,16 @@ logging:
   level: INFO
   loggers:
     com.example.healthchecktest: DEBUG
+
+health: ## https://www.dropwizard.io/en/latest/manual/configuration.html#health
+  healthCheckUrlPaths: [ "/healthcheck" ]
+  delayedShutdownHandlerEnabled: true
+  shutdownWaitPeriod: 1s
+  healthChecks:
+    - name: "looking-good-billyray"
+      critical: true
+      schedule:
+        checkInterval: "1s" ## The interval for performing healthChecks while in a healthy state.
+        downtimeInterval: "1s" ## The healthCheck interval while the app is unhealthy
+        failureAttempts: 2
+        successAttempts: 1
